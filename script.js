@@ -1,5 +1,6 @@
-// Firebase v9 CDN-compatible version
+// Firebase CDN version – No imports, all browser-ready
 
+// Your Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBj4tT_0BXiOdLyAXR_S8yLR3v84yLSrdc",
   authDomain: "tappy-89fb6.firebaseapp.com",
@@ -16,13 +17,19 @@ firebase.initializeApp(firebaseConfig);
 // Firebase Auth
 const auth = firebase.auth();
 
-document.getElementById("loginBtn").addEventListener("click", () => {
-  const provider = new firebase.auth.GoogleAuthProvider();
-  auth.signInWithPopup(provider)
-    .then((result) => {
-      alert(`Logged in as ${result.user.displayName}`);
-    })
-    .catch((error) => {
-      alert(error.message);
+// Handle Google Sign-In button click
+document.addEventListener("DOMContentLoaded", () => {
+  const loginBtn = document.getElementById("loginBtn");
+  if (loginBtn) {
+    loginBtn.addEventListener("click", () => {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      auth.signInWithPopup(provider)
+        .then((result) => {
+          alert(`Logged in as ${result.user.displayName}`);
+        })
+        .catch((error) => {
+          alert("Login failed: " + error.message);
+        });
     });
+  }
 });
