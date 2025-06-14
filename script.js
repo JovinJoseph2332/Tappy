@@ -1,6 +1,4 @@
-// Firebase CDN version – No imports, all browser-ready
-
-// Your Firebase configuration
+// Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBj4tT_0BXiOdLyAXR_S8yLR3v84yLSrdc",
   authDomain: "tappy-89fb6.firebaseapp.com",
@@ -14,10 +12,9 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-// Firebase Auth
+// Auth
 const auth = firebase.auth();
 
-// Handle Google Sign-In button click
 document.addEventListener("DOMContentLoaded", () => {
   const loginBtn = document.getElementById("loginBtn");
   if (loginBtn) {
@@ -29,6 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .catch((error) => {
           alert("Login failed: " + error.message);
+          console.error(error);
         });
     });
   }
