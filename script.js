@@ -1,8 +1,10 @@
+// Firebase v9 CDN-compatible version
+
 const firebaseConfig = {
   apiKey: "AIzaSyBj4tT_0BXiOdLyAXR_S8yLR3v84yLSrdc",
   authDomain: "tappy-89fb6.firebaseapp.com",
   projectId: "tappy-89fb6",
-  storageBucket: "tappy-89fb6.firebasestorage.app",
+  storageBucket: "tappy-89fb6.appspot.com",
   messagingSenderId: "488450992493",
   appId: "1:488450992493:web:af8b5b9d09f9d5a26d5264",
   measurementId: "G-4WQRFEWDLT"
@@ -10,25 +12,17 @@ const firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+
+// Firebase Auth
 const auth = firebase.auth();
 
-// Sign in with Google
-document.getElementById("loginBtn").onclick = () => {
+document.getElementById("loginBtn").addEventListener("click", () => {
   const provider = new firebase.auth.GoogleAuthProvider();
-  auth.signInWithPopup(provider);
-};
-
-// Handle login
-auth.onAuthStateChanged(user => {
-  if (user) {
-    document.getElementById("loginBtn").style.display = "none";
-    document.getElementById("userInfo").style.display = "block";
-    document.getElementById("userName").innerText = `Hello, ${user.displayName}`;
-    document.getElementById("userPic").src = user.photoURL;
-  }
+  auth.signInWithPopup(provider)
+    .then((result) => {
+      alert(`Logged in as ${result.user.displayName}`);
+    })
+    .catch((error) => {
+      alert(error.message);
+    });
 });
-
-// Sign out
-document.getElementById("logoutBtn").onclick = () => {
-  auth.signOut();
-};
